@@ -1,8 +1,8 @@
 from functools import reduce
-from day1_input import rawInput
-from helper import convertInputToList
+from .input import rawInput
+from helper import convertInputToIntList
 
-INPUT = convertInputToList(rawInput)
+INPUT = convertInputToIntList(rawInput)
 
 
 def firstResult():
