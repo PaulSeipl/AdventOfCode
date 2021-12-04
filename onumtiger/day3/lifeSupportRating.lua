@@ -142,9 +142,7 @@ binaryCodes = {001000010101, 010010111110, 001010110111, 001001011101, 001001010
                011011001110, 001110010001, 110011001100, 011000111001, 110111000111, 100100001101, 100101111100,
                101110111101, 001011111010, 100110010011, 100111111011, 000010010011, 100111101100}
 
-bitOne = 0
-bitZero = 0
-
+binaryCodesString = {}
 for i = 1, #binaryCodes do
     binary = tostring(binaryCodes[i])
     missingsBits = 12 - #binary
@@ -153,20 +151,56 @@ for i = 1, #binaryCodes do
             binary = "0" .. binary
         end
     end
-    bit = string.sub(binary, 1, 1)
-    if bit == "0" then
-        bitZero = bitZero + 1
-    else
-        bitOne = bitOne + 1
+    table.insert(binaryCodesString, binary)
+end
+
+bit = 1
+while #binaryCodesString > 1 do
+    bitList = {}
+    for i = 1, #binaryCodesString do
+        binary = binaryCodesString[i]
+        for j = 1, #binary do
+            if j == bit then
+                table.insert(bitList, string.sub(binary, j, j))
+            end
+        end
     end
+    listSum = 0
+    for i = 1, #bitList do
+        listSum = listSum + tonumber(bitList[i])
+    end
+    length = #bitList // 2
+    mostCommonBit = "0"
+    if listSum >= length then
+        mostCommonBit = "1"
+    end
+    oxygenGeneratorRatingBitList = {}
+    for i = 1, #binaryCodesString do
+        binary = binaryCodesString[i]
+        if string.sub(binary, bit, bit) == mostCommonBit then
+            table.insert(oxygenGeneratorRatingBitList, binary)
+        end
+    end
+    bit = bit + 1
+    binaryCodesString = oxygenGeneratorRatingBitList
 end
+print("oxygenGeneratorRatingBitList #", #oxygenGeneratorRatingBitList)
+oxygenGeneratorRatingBit = oxygenGeneratorRatingBitList[1]
+print("oxygenGeneratorRatingBit", oxygenGeneratorRatingBit)
 
-firstBitMostCommon = "0"
-if bitZero > bitOne then
-    firstBitMostCommon = "1"
-end
+-- oxygenGeneratorRatingBit = twelvethBitMatch[1]
+-- print(oxygenGeneratorRatingBit)
 
-firstBitMatch = {}
+-- CO2ScrubberRating = tonumber(CO2ScrubberRatingBit, 2)
+-- oxygenGeneratorRating = tonumber(oxygenGeneratorRatingBit, 2)
+
+-- print(CO2ScrubberRating)
+-- print(oxygenGeneratorRating)
+
+-- lifeSupportRating = CO2ScrubberRating * oxygenGeneratorRating
+-- print(lifeSupportRating)
+
+binaryCodesString = {}
 for i = 1, #binaryCodes do
     binary = tostring(binaryCodes[i])
     missingsBits = 12 - #binary
@@ -175,594 +209,45 @@ for i = 1, #binaryCodes do
             binary = "0" .. binary
         end
     end
-    bit = string.sub(binary, 1, 1)
-    if bit == firstBitMostCommon then
-        table.insert(firstBitMatch, binary)
-    end
+    table.insert(binaryCodesString, binary)
 end
 
-bitOne = 0
-bitZero = 0
-
-for i = 1, #firstBitMatch do
-    binary = firstBitMatch[i]
-    bit = string.sub(binary, 2, 2)
-    if bit == "0" then
-        bitZero = bitZero + 1
-    end
-    if bit == "1" then
-        bitOne = bitOne + 1
-    end
-end
-
-secondBitMostCommon = "0"
-if bitZero > bitOne then
-    secondBitMostCommon = "1"
-end
-
-secondBitMatch = {}
-for i = 1, #firstBitMatch do
-    binary = firstBitMatch[i]
-    bit = string.sub(binary, 2, 2)
-    if bit == secondBitMostCommon then
-        table.insert(secondBitMatch, binary)
-    end
-end
-
-bitOne = 0
-bitZero = 0
-
-for i = 1, #secondBitMatch do
-    binary = secondBitMatch[i]
-    bit = string.sub(binary, 3, 3)
-    if bit == "0" then
-        bitZero = bitZero + 1
-    end
-    if bit == "1" then
-        bitOne = bitOne + 1
-    end
-end
-
-thirdBitMostCommon = "0"
-if bitZero > bitOne then
-    thirdBitMostCommon = "1"
-end
-
-thirdBitMatch = {}
-for i = 1, #secondBitMatch do
-    binary = secondBitMatch[i]
-    bit = string.sub(binary, 3, 3)
-    if bit == thirdBitMostCommon then
-        table.insert(thirdBitMatch, binary)
-    end
-end
-
-bitOne = 0
-bitZero = 0
-
-for i = 1, #thirdBitMatch do
-    binary = thirdBitMatch[i]
-    bit = string.sub(binary, 4, 4)
-    if bit == "0" then
-        bitZero = bitZero + 1
-    end
-    if bit == "1" then
-        bitOne = bitOne + 1
-    end
-end
-
-fourthBitMostCommon = "0"
-if bitZero > bitOne then
-    fourthBitMostCommon = "1"
-end
-
-fourthBitMatch = {}
-for i = 1, #thirdBitMatch do
-    binary = thirdBitMatch[i]
-    bit = string.sub(binary, 4, 4)
-    if bit == fourthBitMostCommon then
-        table.insert(fourthBitMatch, binary)
-    end
-end
-
-bitOne = 0
-bitZero = 0
-
-for i = 1, #fourthBitMatch do
-    binary = fourthBitMatch[i]
-    bit = string.sub(binary, 5, 5)
-    if bit == "0" then
-        bitZero = bitZero + 1
-    end
-    if bit == "1" then
-        bitOne = bitOne + 1
-    end
-end
-
-fifthBitMostCommon = "0"
-if bitZero > bitOne then
-    fifthBitMostCommon = "1"
-end
-
-fifthBitMatch = {}
-for i = 1, #fourthBitMatch do
-    binary = fourthBitMatch[i]
-    bit = string.sub(binary, 5, 5)
-    if bit == fifthBitMostCommon then
-        table.insert(fifthBitMatch, binary)
-    end
-end
-
-bitOne = 0
-bitZero = 0
-
-for i = 1, #fifthBitMatch do
-    binary = fifthBitMatch[i]
-    bit = string.sub(binary, 6, 6)
-    if bit == "0" then
-        bitZero = bitZero + 1
-    end
-    if bit == "1" then
-        bitOne = bitOne + 1
-    end
-end
-
-sixthBitMostCommon = "0"
-if bitZero > bitOne then
-    sixthBitMostCommon = "1"
-end
-
-sixthBitMatch = {}
-for i = 1, #fifthBitMatch do
-    binary = fifthBitMatch[i]
-    bit = string.sub(binary, 6, 6)
-    if bit == sixthBitMostCommon then
-        table.insert(sixthBitMatch, binary)
-    end
-end
-
-bitOne = 0
-bitZero = 0
-
-for i = 1, #sixthBitMatch do
-    binary = sixthBitMatch[i]
-    bit = string.sub(binary, 7, 7)
-    if bit == "0" then
-        bitZero = bitZero + 1
-    end
-    if bit == "1" then
-        bitOne = bitOne + 1
-    end
-end
-
-seventhBitMostCommon = "0"
-if bitZero > bitOne then
-    seventhBitMostCommon = "1"
-end
-
-seventhBitMatch = {}
-for i = 1, #sixthBitMatch do
-    binary = sixthBitMatch[i]
-    bit = string.sub(binary, 7, 7)
-    if bit == seventhBitMostCommon then
-        table.insert(seventhBitMatch, binary)
-    end
-end
-
-bitOne = 0
-bitZero = 0
-
-for i = 1, #seventhBitMatch do
-    binary = seventhBitMatch[i]
-    bit = string.sub(binary, 8, 8)
-    if bit == "0" then
-        bitZero = bitZero + 1
-    end
-    if bit == "1" then
-        bitOne = bitOne + 1
-    end
-end
-
-eigthBitMostCommon = "0"
-if bitZero > bitOne then
-    eigthBitMostCommon = "1"
-end
-
-eigthBitMatch = {}
-for i = 1, #seventhBitMatch do
-    binary = seventhBitMatch[i]
-    bit = string.sub(binary, 8, 8)
-    if bit == eigthBitMostCommon then
-        table.insert(eigthBitMatch, binary)
-    end
-end
-
-bitOne = 0
-bitZero = 0
-
-for i = 1, #eigthBitMatch do
-    binary = eigthBitMatch[i]
-    bit = string.sub(binary, 9, 9)
-    if bit == "0" then
-        bitZero = bitZero + 1
-    end
-    if bit == "1" then
-        bitOne = bitOne + 1
-    end
-end
-
-ninthBitMostCommon = "0"
-if bitZero < bitOne then
-    ninthBitMostCommon = "1"
-end
-
-ninthBitMatch = {}
-for i = 1, #eigthBitMatch do
-    binary = eigthBitMatch[i]
-    bit = string.sub(binary, 9, 9)
-    if bit == ninthBitMostCommon then
-        table.insert(ninthBitMatch, binary)
-    end
-end
-
-CO2ScrubberRatingBit = ninthBitMatch[1]
-print(CO2ScrubberRatingBit)
-
-bitOne = 0
-bitZero = 0
-
-for i = 1, #binaryCodes do
-    binary = tostring(binaryCodes[i])
-    missingsBits = 12 - #binary
-    if missingsBits > 0 then
-        for m = 1, missingsBits do
-            binary = "0" .. binary
+bit = 1
+while #binaryCodesString > 1 do
+    bitList = {}
+    for i = 1, #binaryCodesString do
+        binary = binaryCodesString[i]
+        for j = 1, #binary do
+            if j == bit then
+                table.insert(bitList, string.sub(binary, j, j))
+            end
         end
     end
-    bit = string.sub(binary, 1, 1)
-    if bit == "0" then
-        bitZero = bitZero + 1
-    else
-        bitOne = bitOne + 1
+    listSum = 0
+    for i = 1, #bitList do
+        listSum = listSum + tonumber(bitList[i])
     end
-end
-
-firstBitMostCommon = "0"
-if bitZero < bitOne then
-    firstBitMostCommon = "1"
-end
-
-firstBitMatch = {}
-for i = 1, #binaryCodes do
-    binary = tostring(binaryCodes[i])
-    missingsBits = 12 - #binary
-    if missingsBits > 0 then
-        for m = 1, missingsBits do
-            binary = "0" .. binary
+    length = #bitList // 2
+    mostCommonBit = "0"
+    if listSum < length then
+        mostCommonBit = "1"
+    end
+    CO2ScrubberRatingBitList = {}
+    for i = 1, #binaryCodesString do
+        binary = binaryCodesString[i]
+        if string.sub(binary, bit, bit) == mostCommonBit then
+            table.insert(CO2ScrubberRatingBitList, binary)
         end
     end
-    bit = string.sub(binary, 1, 1)
-    if bit == firstBitMostCommon then
-        table.insert(firstBitMatch, binary)
-    end
+    bit = bit + 1
+    binaryCodesString = CO2ScrubberRatingBitList
 end
+print("CO2ScrubberRatingBitList #", #CO2ScrubberRatingBitList)
+CO2ScrubberRatingBit = CO2ScrubberRatingBitList[1]
+print("CO2ScrubberRatingBit", CO2ScrubberRatingBit)
 
-bitOne = 0
-bitZero = 0
-
-for i = 1, #firstBitMatch do
-    binary = firstBitMatch[i]
-    bit = string.sub(binary, 2, 2)
-    if bit == "0" then
-        bitZero = bitZero + 1
-    end
-    if bit == "1" then
-        bitOne = bitOne + 1
-    end
-end
-
-secondBitMostCommon = "0"
-if bitZero < bitOne then
-    secondBitMostCommon = "1"
-end
-
-secondBitMatch = {}
-for i = 1, #firstBitMatch do
-    binary = firstBitMatch[i]
-    bit = string.sub(binary, 2, 2)
-    if bit == secondBitMostCommon then
-        table.insert(secondBitMatch, binary)
-    end
-end
-
-bitOne = 0
-bitZero = 0
-
-for i = 1, #secondBitMatch do
-    binary = secondBitMatch[i]
-    bit = string.sub(binary, 3, 3)
-    if bit == "0" then
-        bitZero = bitZero + 1
-    end
-    if bit == "1" then
-        bitOne = bitOne + 1
-    end
-end
-
-thirdBitMostCommon = "0"
-if bitZero < bitOne then
-    thirdBitMostCommon = "1"
-end
-
-thirdBitMatch = {}
-for i = 1, #secondBitMatch do
-    binary = secondBitMatch[i]
-    bit = string.sub(binary, 3, 3)
-    if bit == thirdBitMostCommon then
-        table.insert(thirdBitMatch, binary)
-    end
-end
-
-bitOne = 0
-bitZero = 0
-
-for i = 1, #thirdBitMatch do
-    binary = thirdBitMatch[i]
-    bit = string.sub(binary, 4, 4)
-    if bit == "0" then
-        bitZero = bitZero + 1
-    end
-    if bit == "1" then
-        bitOne = bitOne + 1
-    end
-end
-
-fourthBitMostCommon = "0"
-if bitZero < bitOne then
-    fourthBitMostCommon = "1"
-end
-
-fourthBitMatch = {}
-for i = 1, #thirdBitMatch do
-    binary = thirdBitMatch[i]
-    bit = string.sub(binary, 4, 4)
-    if bit == fourthBitMostCommon then
-        table.insert(fourthBitMatch, binary)
-    end
-end
-
-bitOne = 0
-bitZero = 0
-
-for i = 1, #fourthBitMatch do
-    binary = fourthBitMatch[i]
-    bit = string.sub(binary, 5, 5)
-    if bit == "0" then
-        bitZero = bitZero + 1
-    end
-    if bit == "1" then
-        bitOne = bitOne + 1
-    end
-end
-
-fifthBitMostCommon = "0"
-if bitZero < bitOne then
-    fifthBitMostCommon = "1"
-end
-
-fifthBitMatch = {}
-for i = 1, #fourthBitMatch do
-    binary = fourthBitMatch[i]
-    bit = string.sub(binary, 5, 5)
-    if bit == fifthBitMostCommon then
-        table.insert(fifthBitMatch, binary)
-    end
-end
-
-bitOne = 0
-bitZero = 0
-
-for i = 1, #fifthBitMatch do
-    binary = fifthBitMatch[i]
-    bit = string.sub(binary, 6, 6)
-    if bit == "0" then
-        bitZero = bitZero + 1
-    end
-    if bit == "1" then
-        bitOne = bitOne + 1
-    end
-end
-
-sixthBitMostCommon = "0"
-if bitZero < bitOne then
-    sixthBitMostCommon = "1"
-end
-
-sixthBitMatch = {}
-for i = 1, #fifthBitMatch do
-    binary = fifthBitMatch[i]
-    bit = string.sub(binary, 6, 6)
-    if bit == sixthBitMostCommon then
-        table.insert(sixthBitMatch, binary)
-    end
-end
-
-bitOne = 0
-bitZero = 0
-
-for i = 1, #sixthBitMatch do
-    binary = sixthBitMatch[i]
-    bit = string.sub(binary, 7, 7)
-    if bit == "0" then
-        bitZero = bitZero + 1
-    end
-    if bit == "1" then
-        bitOne = bitOne + 1
-    end
-end
-
-seventhBitMostCommon = "0"
-if bitZero < bitOne then
-    seventhBitMostCommon = "1"
-end
-
-seventhBitMatch = {}
-for i = 1, #sixthBitMatch do
-    binary = sixthBitMatch[i]
-    bit = string.sub(binary, 7, 7)
-    if bit == seventhBitMostCommon then
-        table.insert(seventhBitMatch, binary)
-    end
-end
-
-bitOne = 0
-bitZero = 0
-
-for i = 1, #seventhBitMatch do
-    binary = seventhBitMatch[i]
-    bit = string.sub(binary, 8, 8)
-    if bit == "0" then
-        bitZero = bitZero + 1
-    end
-    if bit == "1" then
-        bitOne = bitOne + 1
-    end
-end
-
-eigthBitMostCommon = "0"
-if bitZero < bitOne then
-    eigthBitMostCommon = "1"
-end
-
-eigthBitMatch = {}
-for i = 1, #seventhBitMatch do
-    binary = seventhBitMatch[i]
-    bit = string.sub(binary, 8, 8)
-    if bit == eigthBitMostCommon then
-        table.insert(eigthBitMatch, binary)
-    end
-end
-
-bitOne = 0
-bitZero = 0
-
-for i = 1, #eigthBitMatch do
-    binary = eigthBitMatch[i]
-    bit = string.sub(binary, 9, 9)
-    if bit == "0" then
-        bitZero = bitZero + 1
-    end
-    if bit == "1" then
-        bitOne = bitOne + 1
-    end
-end
-
-ninthBitMostCommon = "0"
-if bitZero < bitOne then
-    ninthBitMostCommon = "1"
-end
-
-ninthBitMatch = {}
-for i = 1, #eigthBitMatch do
-    binary = eigthBitMatch[i]
-    bit = string.sub(binary, 9, 9)
-    if bit == ninthBitMostCommon then
-        table.insert(ninthBitMatch, binary)
-    end
-end
-
-bitOne = 0
-bitZero = 0
-
-for i = 1, #ninthBitMatch do
-    binary = ninthBitMatch[i]
-    bit = string.sub(binary, 10, 10)
-    if bit == "0" then
-        bitZero = bitZero + 1
-    end
-    if bit == "1" then
-        bitOne = bitOne + 1
-    end
-end
-
-tenthBitMostCommon = "0"
-if bitZero < bitOne then
-    tenthBitMostCommon = "1"
-end
-
-tenthBitMatch = {}
-for i = 1, #ninthBitMatch do
-    binary = ninthBitMatch[i]
-    bit = string.sub(binary, 10, 10)
-    if bit == tenthBitMostCommon then
-        table.insert(tenthBitMatch, binary)
-    end
-end
-
-bitOne = 0
-bitZero = 0
-
-for i = 1, #tenthBitMatch do
-    binary = tenthBitMatch[i]
-    bit = string.sub(binary, 11, 11)
-    if bit == "0" then
-        bitZero = bitZero + 1
-    end
-    if bit == "1" then
-        bitOne = bitOne + 1
-    end
-end
-
-elevenBitMostCommon = "0"
-if bitZero < bitOne then
-    elevenBitMostCommon = "1"
-end
-
-eleventhBitMatch = {}
-for i = 1, #tenthBitMatch do
-    binary = tenthBitMatch[i]
-    bit = string.sub(binary, 11, 11)
-    if bit == elevenBitMostCommon then
-        table.insert(eleventhBitMatch, binary)
-    end
-end
-
-bitOne = 0
-bitZero = 0
-
-for i = 1, #eleventhBitMatch do
-    binary = eleventhBitMatch[i]
-    bit = string.sub(binary, 12, 12)
-    if bit == "0" then
-        bitZero = bitZero + 1
-    end
-    if bit == "1" then
-        bitOne = bitOne + 1
-    end
-end
-
-twelvethBitMostCommon = "0"
-if bitZero < bitOne then
-    twelvethBitMostCommon = "1"
-end
-
-twelvethBitMatch = {}
-for i = 1, #eleventhBitMatch do
-    binary = eleventhBitMatch[i]
-    bit = string.sub(binary, 12, 12)
-    if bit == twelvethBitMostCommon then
-        table.insert(twelvethBitMatch, binary)
-    end
-end
-
-oxygenGeneratorRatingBit = twelvethBitMatch[1]
-print(oxygenGeneratorRatingBit)
-
-CO2ScrubberRating = tonumber(CO2ScrubberRatingBit, 2)
 oxygenGeneratorRating = tonumber(oxygenGeneratorRatingBit, 2)
+CO2ScrubberRating = tonumber(CO2ScrubberRatingBit, 2)
 
-print(CO2ScrubberRating)
-print(oxygenGeneratorRating)
-
-lifeSupportRating = CO2ScrubberRating * oxygenGeneratorRating
+lifeSupportRating = oxygenGeneratorRating * CO2ScrubberRating
 print(lifeSupportRating)
