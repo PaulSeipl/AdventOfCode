@@ -1,12 +1,4 @@
 import { bingoSequence, bingoBoards } from "./bingoSequence.js";
-let testArray = [
-  [[67, "marked"], 7, 75, 66, 4],
-  [35, 97, 21, 29, 95],
-  [58, 98, 56, 71, 65],
-  [55, 61, 19, 64, 9],
-  [38, 34, 42, 30, 2],
-];
-
 const checkRowIsMarked = (inputRow) => {
   let isRowMarked = false;
   for (let i = 0; i < inputRow.length; i++) {
@@ -50,8 +42,6 @@ const calculateBoardSum = (inputArray) => {
   }
   return boardSum;
 };
-
-// console.log(calculateBoardSum(testArray));
 
 let winningBoard = [[]];
 let winningDraw = -1;
