@@ -52,8 +52,6 @@ for (let draw = 0; draw < bingoSequence.length; draw++) {
   let bingoInColumn = false;
   for (let bingoBoard = 0; bingoBoard < bingoBoards.length; bingoBoard++) {
     let currentBoard = bingoBoards[bingoBoard];
-    console.log(bingoBoard);
-    console.log(draw);
     for (let row = 0; row < currentBoard.length; row++) {
       currentBoard[row].forEach(function (entry, i) {
         if (entry == currentDraw)
