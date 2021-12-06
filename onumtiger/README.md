@@ -1,4 +1,4 @@
 # current statuse
 
-## onumtiger 10* / 12*
+## onumtiger 10⭐️ / 12⭐️ 
 
