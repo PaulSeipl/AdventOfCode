@@ -4,11 +4,12 @@ import {
   postPairs,
   testArray,
 } from "./hydrothermalVents.js";
+import { calculateDiagonals } from "./calculateDiagonals.js";
 const SIZE = 1000;
 
 const coordinatesArray = getPairs(hydrothermalVents);
 
-const generateEmptyFloor = () => {
+export const generateEmptyFloor = () => {
   let floor = new Array(SIZE);
 
   for (let i = 0; i < floor.length; i++) {
@@ -23,8 +24,6 @@ const generateEmptyFloor = () => {
   return floor;
 };
 
-let counter = 0;
-
 const calculateOceanFloor = (coordinates) => {
   const oceanFloor = generateEmptyFloor();
 
@@ -35,12 +34,10 @@ const calculateOceanFloor = (coordinates) => {
       if (y1 < y2) {
         for (let y = y1; y <= y2; y++) {
           oceanFloor[x1][y]++;
-          counter++;
         }
       } else {
         for (let y = y1; y >= y2; y--) {
           oceanFloor[x1][y]++;
-          counter++;
         }
       }
     }
@@ -48,12 +45,10 @@ const calculateOceanFloor = (coordinates) => {
       if (x1 < x2) {
         for (let x = x1; x <= x2; x++) {
           oceanFloor[x][y1]++;
-          counter++;
         }
       } else {
         for (let x = x1; x >= x2; x--) {
           oceanFloor[x][y1]++;
-          counter++;
         }
       }
     }
@@ -61,13 +56,12 @@ const calculateOceanFloor = (coordinates) => {
   return oceanFloor;
 };
 
-const calcuateDangerousAreas = (oceanFloor) => {
+export const calcuateDangerousAreas = (oceanFloor) => {
   const dangerousAreas = [];
   for (let x = 0; x < SIZE; x++) {
     for (let y = 0; y < SIZE; y++) {
       if (oceanFloor[x][y] > 1) {
         dangerousAreas.push([x, y]);
-        // counter++;
       }
     }
   }
@@ -78,4 +72,10 @@ const amountDangerousAreas = calcuateDangerousAreas(
   calculateOceanFloor(coordinatesArray)
 );
 
-console.log(amountDangerousAreas.length);
+console.log("Exluding diagonals", amountDangerousAreas.length);
+
+const amountDangerousAreasDiagonal = calcuateDangerousAreas(
+  calculateDiagonals(coordinatesArray)
+);
+
+console.log("Including diagonals", amountDangerousAreasDiagonal.length);
