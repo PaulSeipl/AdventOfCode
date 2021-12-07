@@ -3,4 +3,4 @@ def convertInputToIntList(input: str):
 
 
 def convertInputToList(input: str):
-    return input.split("\n")
+    return input.splitlines()
