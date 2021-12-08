@@ -9,12 +9,13 @@ linesListRaw = convertInputToList(rawlines)
 def firstResult():
     lines = parseLinesList(linesListRaw)
     coor = createCoor(1000, 1000)
-    print(coor)
-    return countCoor(insertLines(coor, lines))
+    return countCoor(insertHVLines(coor, lines))
 
 
 def secondResult():
-    return
+    lines = parseLinesList(linesListRaw)
+    coor = createCoor(1000, 1000)
+    return countCoor(insertHVDLines(coor, lines))
 
 
 def countCoor(coor):
@@ -25,17 +26,29 @@ def flatten(t):
     return [item for sublist in t for item in sublist]
 
 
-def insertLines(coor, lines):
+def insertHVLines(coor, lines):
     copyCoor = deepcopy(coor)
     for line in lines:
         if not horizontalChecker(line) and not verticalChecker(line):
-            print("con")
             continue
         points = getPoints(line)
-        print(points)
         for x, y in points:
             copyCoor[y][x] += 1
-    print(copyCoor)
+    return copyCoor
+
+
+def insertHVDLines(coor, lines):
+    copyCoor = deepcopy(coor)
+    for line in lines:
+        if (
+            not horizontalChecker(line)
+            and not verticalChecker(line)
+            and not diagonalChecker(line)
+        ):
+            continue
+        points = getPoints(line)
+        for x, y in points:
+            copyCoor[y][x] += 1
     return copyCoor
 
 
@@ -51,6 +64,7 @@ def getPoints(line):
             else:
                 y1 -= 1
             points.append((x1, y1))
+        return points
 
     if horizontalChecker(line):
         while x1 != x2:
@@ -59,8 +73,20 @@ def getPoints(line):
             else:
                 x1 -= 1
             points.append((x1, y1))
+        return points
 
-    return points
+    if diagonalChecker(line):
+        while x1 != x2 and y1 != y2:
+            if x1 < x2:
+                x1 += 1
+            else:
+                x1 -= 1
+            if y1 < y2:
+                y1 += 1
+            else:
+                y1 -= 1
+            points.append((x1, y1))
+        return points
 
 
 def verticalChecker(line):
@@ -71,6 +97,11 @@ def verticalChecker(line):
 def horizontalChecker(line):
     point1, point2 = line
     return point1[1] == point2[1]
+
+
+def diagonalChecker(line):
+    point1, point2 = line
+    return abs(point1[0] - point2[0]) == abs(point1[1] - point2[1])
 
 
 def createCoor(xSize, ySize):
