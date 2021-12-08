@@ -1,4 +1,4 @@
-from day5.code import firstResult, secondResult
+from day6.code import firstResult, secondResult
 
 
 def main():
