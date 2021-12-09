@@ -4,9 +4,7 @@ from bingoSequence import *
 def isCompletelyMarked(inputRow):
     for i, entry in enumerate(inputRow):
         if type(entry) == int:
-            print("input is not marked", inputRow)
             return False
-    print("input bingo", inputRow)
     return True
 
 
@@ -15,7 +13,6 @@ def calculateBoardSum(board):
     for row in board:
         for entry in row:
             if type(entry) == int:
-                # print("boardSum: {boardSum} before {entry} is added.".format(boardSum=boardSum, entry=entry))
                 boardSum += entry
     return boardSum
 
@@ -51,13 +48,18 @@ def checkBingo(board):
 
 def playBingo(boards, drawingSequence):
     winningCombos = []
-    for i, draw in enumerate(drawingSequence):
+    winningBoards = []
+    i = 0
+    while len(boards) > 0:
+        draw = drawingSequence[i]
         for j, board in enumerate(boards):
-            markBoard(board, draw)
+            board = markBoard(board, draw)
             bingo = checkBingo(board)
             if bingo:
                 winningCombos.append([draw, board])
-                boards.remove(board)
+                winningBoards.append(board)
+        boards = [item for item in boards if item not in winningBoards]
+        i += 1
     return winningCombos
 
 
@@ -70,4 +72,10 @@ def firstWinningBoard(boards, sequence):
     return calculateFinalScore(firstWinningCombo[0], firstWinningCombo[1])
 
 
-print(firstWinningBoard(bingoBoards, bingoSequence))
+def lastWinningBoard(boards, sequence):
+    lastWinningBoard = playBingo(boards, sequence)[-1]
+    print("lastDraw", lastWinningBoard[0])
+    return calculateFinalScore(lastWinningBoard[0], lastWinningBoard[1])
+
+
+print("last winning booard", lastWinningBoard(bingoBoards, bingoSequence))
