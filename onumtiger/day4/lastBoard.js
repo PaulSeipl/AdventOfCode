@@ -98,6 +98,7 @@ const calculateBoardSum = (inputArray) => {
   return boardSum;
 };
 
+let bordOrder = [];
 let winningBoard = [[]];
 let winningDraw = -1;
 let bingoBoardsCopy = bingoBoards;
@@ -131,14 +132,18 @@ for (let draw = 0; draw < bingoSequence.length; draw++) {
     break;
   }
   if (bingo) {
+    bordOrder.push(winningBoard);
+    bordOrder.push(winningDraw);
     bingoBoardsCopy.splice(bingoIndex, 1);
     bingo = false;
   }
 }
 
 const boardSum = calculateBoardSum(winningBoard);
-console.log("boardSum", boardSum);
-console.log("winningDraw", winningDraw);
+// console.log("boardSum", boardSum);
+// console.log("winningDraw", winningDraw);
 const finalScore = boardSum * winningDraw;
+console.log(bordOrder[bordOrder.length - 3]);
+console.log(bordOrder[bordOrder.length - 4]);
 
 console.log("finalScore", finalScore);
