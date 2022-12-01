@@ -4,3 +4,7 @@ def convertInputToIntList(input: str):
 
 def convertInputToList(input: str):
     return input.splitlines()
+
+
+def flatten(t):
+    return [item for sublist in t for item in sublist]
