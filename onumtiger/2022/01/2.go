@@ -1,14 +1,18 @@
-package main
+package one
 
 import (
 	"fmt"
-	"io/ioutil"
+	"log"
+	"os"
 	"strconv"
 	"strings"
 )
 
-func second() {
-	content, _ := ioutil.ReadFile("1.txt")
+func Second() {
+	content, err := os.ReadFile("./01/input.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
 	t := string(content[:])
 	input := strings.Split(t, "\n")
 
