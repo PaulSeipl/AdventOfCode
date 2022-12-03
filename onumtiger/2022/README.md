@@ -1,3 +1,3 @@
-# current status Day 2
+# current status Day 3
 
-## onumtiger 4 / 4⭐️
+## onumtiger 6 / 6⭐️

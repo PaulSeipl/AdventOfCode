@@ -2,12 +2,10 @@ package main
 
 import (
 	// one "adventofcode/01"
-	two "adventofcode/02"
+	// two "adventofcode/02"
+	three "adventofcode/03"
 )
 
 func main() {
-	// one.First()
-	// one.Second()
-
-	two.Second()
+	three.Second()
 }
